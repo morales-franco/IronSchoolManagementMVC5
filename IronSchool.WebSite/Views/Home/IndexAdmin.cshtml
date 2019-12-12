@@ -1,0 +1,153 @@
+﻿@model IronSchool.WebSite.Models.HomeAdministratorVM
+
+<div class="card">
+    <div class="card-body card-padding">
+        <div class="row m-t-25 p-0 m-b-25">
+            <div class="col-xs-4">
+                <div class="bgm-amber brd-2 p-15">
+                    <div class="c-white m-b-5">Cantidad Profesores Activos</div>
+                    <h2 class="m-0 c-white f-300">@Model.CantidadProfesores</h2>
+                </div>
+            </div>
+
+            <div class="col-xs-4">
+                <div class="bgm-blue brd-2 p-15">
+                    <div class="c-white m-b-5">Cantidad Cursos Activos</div>
+                    <h2 class="m-0 c-white f-300">@Model.CantidadCursos</h2>
+                </div>
+            </div>
+
+            <div class="col-xs-4">
+                <div class="bgm-green brd-2 p-15">
+                    <div class="c-white m-b-5">Cantidad Alumnos Activos</div>
+                    <h2 class="m-0 c-white f-300">@Model.CantidadAlumnos</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Ranking Estudiantes<small>Mejores Promedios en cursos activos</small></h2>
+                    </div>
+
+                    <div class="card-body m-t-0">
+                        <table class="table table-inner table-vmiddle">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Estudiante</th>
+                                    <th style="width: 80px">Promedio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var estudiante in Model.EstudiantesTop)
+                                {
+                                    <tr>
+                                        <td class="f-500 c-cyan">#@(Model.EstudiantesTop.IndexOf(estudiante) + 1)</td>
+                                        <td>@estudiante.Estudiante</td>
+                                        <td class="f-500 c-cyan">@estudiante.Promedio</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>% Aprobados en cursos Activos</h2>
+                    </div>
+
+                    <div class="card-body card-padding">
+                        <div id="chart-student-id" class="flot-chart-pie"></div>
+                        <div class="legend-student-option hidden-xs"></div>
+
+                        @if (Model.CantidadAlumnosAprobados == 0 && Model.CantidadAlumnosDesaprobados == 0)
+                        {
+                            <div class="alert alert-info" role="alert">
+                                No se detectaron alumnos que hayan rendido examentes en cursos activos!
+                            </div>
+                        }
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@section Scripts{
+    @Scripts.Render("~/Scripts/flot/jquery.flot.min.js")
+    @Styles.Render("~/Scripts/flot/jquery.flot.resize.min.js")
+    @Scripts.Render("~/Scripts/flot/jquery.flot.pie.min.js")
+    @Scripts.Render("~/Scripts/flot/jquery.flot.tooltip.min.js")
+
+<script type="text/javascript">
+        $(function () {
+            var cantidadAlumnosAprobados = Number('@Model.CantidadAlumnosAprobados');
+            var cantidadAlumnosDesaprobados = Number('@Model.CantidadAlumnosDesaprobados');
+
+            if (cantidadAlumnosAprobados == 0 && cantidadAlumnosDesaprobados == 0) {
+                $("#chart-student-id").hide();
+                $(".legend-student-option").hide();
+                return;
+            }
+
+            setChartQualificationStudents(cantidadAlumnosAprobados, cantidadAlumnosDesaprobados);
+        });
+
+        function setChartQualificationStudents(cantidadAlumnosAprobados, cantidadAlumnosDesaprobados) {
+            var pieData1 = [{
+                data: cantidadAlumnosAprobados,
+                color: "#4fd654",
+                label: "Aprobados"
+            }, {
+                data: cantidadAlumnosDesaprobados,
+                color: "#f75145",
+                label: "Desaprobados"
+            }];
+
+            $("#chart-student-id")[0] && $.plot("#chart-student-id", pieData1, {
+                series: {
+                    pie: {
+                        show: !0,
+                        stroke: {
+                            width: 2
+                        }
+                    }
+                },
+                legend: {
+                    container: ".legend-student-option",
+                    backgroundOpacity: .5,
+                    noColumns: 0,
+                    backgroundColor: "white",
+                    lineWidth: 0
+                },
+                grid: {
+                    hoverable: !0,
+                    clickable: !0
+                },
+                tooltip: !0,
+                tooltipOpts: {
+                    content: "%p.0%, %s",
+                    shifts: {
+                        x: 20,
+                        y: 0
+                    },
+                    defaultTheme: !1,
+                    cssClass: "flot-tooltip"
+                }
+            });
+        }
+</script>
+
+}

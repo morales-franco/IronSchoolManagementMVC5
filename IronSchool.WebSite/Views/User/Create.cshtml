@@ -1,0 +1,36 @@
+﻿@model IronSchool.WebSite.Models.UserVM
+@using IronSchool.WebSite.Helpers
+@{
+    ViewBag.Title = string.Format("{0} {1}", Resources.Resources.Create, Resources.Resources.User);
+    ViewBag.Modal = Context.Request.Params["modal"] == "true";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="card">
+        <div class="card-header">
+            <h2>
+                @Resources.Resources.User
+                <small>@Resources.Resources.Create</small>
+                <small>@Html.ValidationSummary(true)</small>
+            </h2>
+        </div>
+
+        <div class="card-body card-padding">
+            <div class="row">
+                <fieldset>
+                    @Html.FormFieldFor(m => m.UserName, 4)
+                    @Html.FormFieldFor(m => m.Password, 4)
+                    @Html.FormFieldFor(m => m.ConfirmPassword, 4)
+                    @Html.FormFieldFor(m => m.FirstName, 4)
+                    @Html.FormFieldFor(m => m.LastName, 4)
+                    @Html.FormFieldFor(m => m.Email, 4)
+                </fieldset>
+                @Html.Submit(Resources.Resources.Save)
+                @Html.BackButton()
+            </div>
+        </div>
+    </div>
+}

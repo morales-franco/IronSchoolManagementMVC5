@@ -1,0 +1,33 @@
+﻿@model IronSchool.WebSite.Models.RoleVM
+@using IronSchool.WebSite.Helpers
+@{
+    ViewBag.Title = string.Format("{0} {1}", Resources.Resources.Details, Resources.Resources.Role);
+}
+
+<div class="card">
+    <div class="card-header">
+        <h2>
+            @Resources.Resources.Role
+            <small>@Resources.Resources.Details</small>
+        </h2>
+    </div>
+
+    <div class="card-body card-padding">
+        <div class="row">
+            @Html.FormFieldFor(m => m.Name, 4, new { @disabled = true })
+            @Html.FormSelectFieldFor(m => m.Active, (SelectList)ViewBag.BooleanItems, Resources.Resources.Select, 4, new { @disabled = true })
+            <br />
+            <br />
+            @Html.Partial("_RoleRulesUsers", Model)
+        </div>
+        @Html.BackButton()
+    </div>
+</div>
+@section Scripts{
+   <script type="text/javascript">
+       $().ready(function () {
+           $(":checkbox").attr("disabled", "disabled").after("<i class='input-helper'></i>");
+           $(".checkbox").addClass("disabled");
+       });
+    </script>
+}

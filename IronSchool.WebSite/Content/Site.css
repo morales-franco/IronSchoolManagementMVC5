@@ -1,0 +1,190 @@
+﻿.card .card-body.filter-collapse {
+    padding: 10px 10px 0px 10px;
+}
+
+.h-inner {
+    list-style: none;
+    padding: 8px 0;
+    margin-bottom: 0;
+}
+
+#header {
+    box-shadow: 0 1px 4px rgba(0,0,0,.3);
+    min-height: 50px;
+    user-select: none;
+    position: fixed;
+    z-index: 11;
+    width: 100%;
+    left: 0;
+    top: 0;
+    padding: 0 8px;
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    padding-top: 0px;
+    padding-bottom: 15px;
+}
+
+.sidebar {
+    position: fixed;
+    background: #fff;
+    height: calc(100% - 70px);
+    top: 50px;
+    transition: all;
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s;
+    z-index: 10;
+    overflow-y: auto;
+    box-shadow: 0 1px 1px rgba(0,0,0,.1);
+}
+
+#main {
+    padding-bottom: 90px;
+    padding-top: 70px;
+}
+
+.grid-action-icon {
+    /*.zmdi*/
+    display: inline-block;
+    font: normal normal normal 14px/1 'Material-Design-Iconic-Font';
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    /*.zmdi-hc-lg*/
+    font-size: 1.5em;
+    line-height: .75em;
+    vertical-align: -15%;
+    padding: 0px 0px 0px 8px;
+    color: #5E5E5E;
+}
+
+    .grid-action-icon:hover {
+        color: #444;
+    }
+
+/*.block-header {
+    margin-bottom: 45px;
+    position: relative;
+}*/
+
+/**************VALIDATION************/
+.field-validation-error {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #f6675d;
+    font-size: 92%;
+}
+
+.validation-summary-errors li {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    color: #f6675d;
+}
+
+.login-content {
+    min-height: 100vh;
+    text-align: center;
+    background-color: #3f51b5;
+}
+
+.btn-login i {
+    margin-top: 7px;
+}
+
+.lcb-navigation a[data-ma-block="#l-forget-password"]:hover {
+    width: 165px
+}
+
+.lcb-navigation a[data-ma-block="#l-login"]:hover {
+    width: 117px
+}
+
+.form-group {
+    margin-bottom: 10px;
+    height: 80px;
+}
+
+.form-control {
+    height: 25px;
+}
+
+section#main.modalWindow {
+    padding-top: 0px;
+}
+
+section#content.modalWindow {
+    padding-left: 0px;
+}
+
+div.select {
+    position: static !important;
+    height: 25px;
+}
+
+.no-left-padding {
+    padding-left: 0;
+}
+
+.browser-form-group {
+    margin-bottom: 0px;
+    height: auto;
+}
+
+.browser-addon {
+    background-color: transparent !important;
+    border-bottom-color: transparent !important;
+}
+
+.currency input {
+    text-align: right;
+    padding-right: 10% !important;
+}
+
+.th-debe-haber {
+    width: 20%;
+    text-align: right;
+    padding-right: 2%;
+}
+
+.actions > li {
+    padding-left: 5px;
+}
+
+.input-validation-error {
+    border-bottom: red 1px solid;
+}
+
+.subtitle {
+    margin: 0;
+    line-height: 100%;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.children-table-actions {
+    width: 120px;
+}
+
+.children-manager-container {
+    margin: 0px 20px 0px 20px;
+}
+
+    .children-manager-container table thead tr th {
+        text-transform: none;
+        font-size: 13px;
+        font-weight: normal;
+    }
+
+h4{
+    font-size:15px;
+}
+
+.panel-title {
+    font-size: 15px;
+}

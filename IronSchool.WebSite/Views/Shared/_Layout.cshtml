@@ -1,0 +1,93 @@
+﻿@using IronSchool.WebSite
+@using IronSchool.WebSite.Helpers
+@{ 
+    string modalCss = "";
+    if (Html.IsModalWindow())
+    {
+        modalCss = "modalWindow";
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewBag.Title</title>
+
+    <!-- Vendor styles -->
+
+    @Styles.Render("~/Content/ma/animate.css")
+    @Styles.Render("~/Content/ma/sweetalert2.css")
+    @Styles.Render("~/Content/ma/material-design-iconic-font.css")
+    @Styles.Render("~/Content/ma/jquery.mCustomScrollbar.css")
+    @Styles.Render("~/Content/ma/app_1.css")
+    @Styles.Render("~/Content/ma/app_2.css")
+    @Styles.Render("~/Content/site.css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/Scripts/jquery-migrate-3.0.1.min.js")
+
+</head>
+<body>
+
+    <!--Page Loader-->
+    @*<div class="page-loader">
+            <div class="preloader pls-blue">
+                <svg class="pl-circular" viewBox="25 25 50 50">
+                    <circle class="plc-path" cx="50" cy="50" r="20" />
+                </svg>
+                <p>Espere por favor...</p>
+            </div>
+        </div>*@
+    @if (!Html.IsModalWindow())
+    {
+        <text>@Html.Partial("~/Views/Shared/_TopBar.cshtml")</text>
+    }
+
+    <section id="main" class="@modalCss">
+        @if (!Html.IsModalWindow())
+        {
+            <text>@Html.Partial("~/Views/Shared/_LeftMenu.cshtml")</text>
+        }
+
+        @*@Html.Partial("~/Views/Shared/_RightSideBar.cshtml")*@
+
+        <section id="content" class="@modalCss">
+            <div class="container">
+                @RenderBody()
+            </div>
+        </section>
+    </section>
+
+    @Html.Partial("~/Views/Shared/_Footer.cshtml")
+
+
+    @Scripts.Render("~/bundles/bootstrap")
+
+    @Scripts.Render("~/Scripts/ma/jquery.mCustomScrollbar.concat.js")
+    @Scripts.Render("~/Scripts/ma/waves.js")
+    @Scripts.Render("~/Scripts/ma/bootstrap-growl.js")
+    @Scripts.Render("~/Scripts/ma/sweetalert2.js")
+    @*@Scripts.Render("~/Scripts/ma/jquery.bootstrap.wizard.js")*@
+    @Scripts.Render("~/Scripts/ma/jquery.mask.js")
+    @Scripts.Render("~/Scripts/ma/app.js")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/custom/custom.js")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+
+<script type="text/javascript">
+
+    $(function () {
+
+        if ('@ViewBag.MostrarMensajeGenerico' !== '')
+        {
+            if ('@ViewBag.MostrarMensajeGenerico'== 'createOK')
+                notify('@Resources.Resources.MsjCreateOkGenerico', 'success');
+            else if ('@ViewBag.MostrarMensajeGenerico' == 'updateOK')
+                notify('@Resources.Resources.MsjEditOkGenerico', 'success');
+        }       
+     });
+</script>

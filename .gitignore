@@ -3,3 +3,19 @@
 ################################################################################
 
 /.vs/IronSchool
+/IronSchool.Backend/bin/Debug
+/IronSchool.Backend/obj/Debug
+/IronSchool.Business/bin/Debug
+/IronSchool.Business/obj/Debug
+/IronSchool.Entities/bin/Debug
+/IronSchool.Entities/obj/Debug
+/IronSchool.Repositories/bin/Debug
+/IronSchool.Repositories/obj/Debug
+/IronSchool.Repositories.Interfaces/bin/Debug
+/IronSchool.Repositories.Interfaces/obj/Debug
+/IronSchool.Utils/bin/Debug
+/IronSchool.Utils/obj/Debug
+/IronSchool.WebSite/bin
+/IronSchool.WebSite/obj/Debug
+/IronSchool.Backend/IronSchool.Backend.dbmdl
+/IronSchool.Backend/IronSchool.Backend.jfm

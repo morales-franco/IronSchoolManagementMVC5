@@ -1,0 +1,120 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ include file="Imports.include.t4" #>
+@model IEnumerable<#= "<" + ViewDataTypeName + ">" #>
+@using Resources
+@using System.Configuration
+<#
+	string boolType = "System.Boolean";
+	string dateType = "System.DateTime";
+// The following chained if-statement outputs the file header code and markup for a partial view, a view using a layout page, or a regular view.
+if(IsPartialView) {
+#>
+
+<#
+} else if(IsLayoutPageSelected) {
+#>
+
+@{
+    ViewBag.Title = Resources.<#= ViewDataTypeShortName#>;
+<#
+if (!String.IsNullOrEmpty(LayoutPageFile)) {
+#>
+    Layout = "<#= LayoutPageFile#>";
+<#
+}
+#>
+}
+@section featured {<h1>@ViewBag.Title</h1>}
+@section Scripts {@Scripts.Render("~/bundles/jqueryval")}
+
+<#
+} else {
+#>
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title><#= ViewName #></title>
+</head>
+<body>
+<#
+    PushIndent("    ");
+}
+#>
+
+@using (Ajax.BeginForm(new AjaxOptions() { UpdateTargetId = "ajaxGrid" }))
+{
+    <div class="box-header no-padding">
+        <div class="panel box">
+            <div class="box-header">
+                <h4 class="box-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="collapsed">
+                        <span class="tituloCollapse">@Resources.Filtros</span>
+                    </a>
+                </h4>
+                @if(ViewBag.PermiteCrear){
+                <div class="pull-right col-xs-2 box-tools">
+                    <div class="pull-right box-tools">
+                        <a href="@Url.Action("Create")" class="btn btn-primary btn-md">@Resources.Create</a>
+                    </div>
+                </div>
+                }
+                <div id="collapseOne" class="panel-collapse collapse" style="height: 0px;">
+                    <br />
+                    <div class="box-body filters">					
+<#
+	IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;
+	string filterList = string.Empty;
+	foreach (PropertyMetadata property in properties) {
+		if (property.Scaffold && !property.IsPrimaryKey && !property.IsForeignKey) {			
+#>						<div class="form-group col-md-2">
+							@Html.LabelFor(model=> model.FirstOrDefault().<#= property.PropertyName #>)
+<#
+			bool isBoolean = property.TypeName.Equals(boolType);
+			bool isDateTime = property.TypeName.Equals(dateType);
+			if(isBoolean){
+#>							@Html.DropDownList("<#= property.PropertyName #>", ViewBag.BooleanFilter as SelectList, new {@class="form-control"})
+<#          }
+			if(isDateTime){
+#>							@Html.TextBox("<#= property.PropertyName #>",null, new { @type="date", @class="form-control"})
+<#			}
+			if(!isDateTime && !isBoolean){
+#>							@Html.TextBox("<#= property.PropertyName #>", null, new {@class="form-control"})
+<#          }
+			filterList += "\"" +property.PropertyName + "\", ";
+#>						</div>					
+<#
+		}
+    }
+#>						<div class="form-group col-md-1">
+							<br />
+							@Ajax.ActionLinkWithParameters(" ", "IndexGrid", "Local", new AjaxOptions() { UpdateTargetId = "ajaxGrid", OnComplete = "webGridUpdated" },
+							new string[] { <#= filterList.Substring(0, filterList.Length -2 <0 ? 0 : filterList.Length -2) #> }, new { @class = "fa fa-search btn btn-lg btn-default" })
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Html.Partial("IndexGrid",Model)
+}
+<#
+// The following code closes the tag used in the case of a view using a layout page and the body and html tags in the case of a regular view page
+#>
+<#
+if(!IsPartialView && !IsLayoutPageSelected) {
+    ClearIndent();
+#>
+</body>
+</html>
+<#
+}
+#>
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

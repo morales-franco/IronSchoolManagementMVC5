@@ -1,0 +1,45 @@
+﻿@using Kendo.Mvc.UI
+@using IronSchool.Business
+@using IronSchool.WebSite.Helpers
+@{
+    ViewBag.Title = string.Format(Resources.Resources.CoursesAndQualificationsByInstructor, UserBusiness.Current.LastName + " " + UserBusiness.Current.FirstName);
+}
+@section Scripts{
+    @Styles.Render("~/bundles/kendoStyles")
+    @Scripts.Render("~/bundles/kendo")
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.min.js"></script>
+}
+<div class="block-header">
+    <h2>@ViewBag.Title</h2>
+    <ul class="actions">
+        <li>
+            <button class="btn btn-primary waves-effect" onclick="downloadGridAsExcel();" title="@Resources.Resources.DownloadExcel"><i class="zmdi zmdi-download"></i></button>
+        </li>
+    </ul>
+</div>
+@(Html.Kendo().Grid<IronSchool.WebSite.Models.QualificationIndexVM>()
+                                                .Name("grid")
+                                                .Columns(columns =>
+                                                {
+                                                    columns.Bound(c => c.Course);
+                                                    columns.Bound(c => c.Student);
+                                                    columns.Bound(c => c.Qualification);
+                                                    columns.Template(c => c.QualificationId).ClientTemplate(
+                                    (ViewBag.PermiteVer == true ? "<a title='" + Resources.Resources.Details + "' href='" + Url.Action("Details") + "?id=#= QualificationId #'><i class='grid-action-icon zmdi-view-headline'></i></a>" : "") +
+                                    (ViewBag.PermiteEditar == true ? "<a title='" + Resources.Resources.Edit + "' href='" + Url.Action("Edit") + "?id=#= QualificationId #'><i class='grid-action-icon zmdi-edit'></i></a>" : ""))
+                                    .Title(Resources.Resources.Actions);
+                                                })
+                                            .HtmlAttributes(new { style = "height: 500px;" })
+                                            .Scrollable()
+                                            .Groupable()
+                                            .Sortable()
+                                            .Excel(excel => excel.Filterable(true).AllPages(true).FileName(ViewBag.Title))
+                                            .Pageable(pageable => pageable
+                                                .Refresh(true)
+                                                .PageSizes(true)
+                                                .ButtonCount(5))
+                                            .DataSource(dataSource => dataSource
+                                                .Ajax()
+                                                .Read(read => read.Action("GetList", "Qualification").Data("getFilter"))
+                                                .PageSize(Html.CrudPageSize()))
+                                                .Filterable())

@@ -1,0 +1,36 @@
+﻿@model IronSchool.WebSite.Models.RoleVM
+@using IronSchool.WebSite.Helpers
+@{
+    ViewBag.Title = string.Format("{0} {1}", Resources.Resources.Create, Resources.Resources.Role);
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="card">
+        <div class="card-header">
+            <h2>
+                @Resources.Resources.Role
+                <small>@Resources.Resources.Create</small>
+                <small>@Html.ValidationSummary(true)</small>
+            </h2>
+        </div>
+
+        <div class="card-body card-padding">
+            <div class="row">
+                <fieldset>
+                    @Html.FormFieldFor(m => m.Name, 4)
+                    <br />
+                    <br />
+                    @Html.Partial("_RoleRulesUsers", Model)
+                </fieldset>
+                @Html.Submit(Resources.Resources.Save)
+                @Html.BackButton()
+            </div>
+        </div>
+    </div>
+}
+@section Scripts{
+    @Scripts.Render("~/scripts/custom/roleABM.js")
+}

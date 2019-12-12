@@ -1,0 +1,15 @@
+﻿@model IronSchool.WebSite.Models.RoleRuleVM
+@using Resources
+
+<tr>
+    <td>
+        @Html.HiddenFor(x=>x.RuleId)
+        @Model.DisplayName
+    </td>
+    <td>
+        <label class="checkbox">            
+            @Html.CheckBoxFor(x => x.Selected)
+        </label>        
+    </td>
+</tr>
+

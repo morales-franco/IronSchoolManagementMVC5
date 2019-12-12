@@ -1,0 +1,84 @@
+﻿@using IronSchool.Business
+
+<aside id="sidebar" class="sidebar c-overflow">
+    <div class="s-profile">
+        <a href="" data-ma-action="profile-menu-toggle">
+            <div class="sp-pic">
+                <img src="@Url.Content("~/Content/img/4.jpg")" alt="">
+            </div>
+
+            <div class="sp-info">
+                @UserBusiness.Current.FirstName @UserBusiness.Current.LastName
+                <i class="zmdi zmdi-caret-down"></i>
+            </div>
+        </a>
+
+        <ul class="main-menu">
+            <li>
+                <a href="@Url.Action("MyProfile", "User")"><i class="zmdi zmdi-account"></i> @Resources.Resources.MyProfile</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Logout", "Account")"><i class="zmdi zmdi-time-restore"></i> @Resources.Resources.Logout</a>
+            </li>
+        </ul>
+    </div>
+
+    <ul class="main-menu">
+        @if (UserBusiness.Authorize("Home.Index"))
+        {
+        <li><a href="@Url.Action("Index", "Home" )"><i class="zmdi zmdi-home"></i> @Resources.Resources.Home</a></li>
+        }
+
+      
+
+        @if (UserBusiness.Authorize("Student.Index") ||
+             UserBusiness.Authorize("Instructor.Index") ||
+             UserBusiness.Authorize("Qualification.Index") ||
+             UserBusiness.Authorize("Course.Index"))
+        {
+        <li class="sub-menu">
+            <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-collection-item"></i> @Resources.Resources.Tablas</a>
+
+            <ul>
+                @if (UserBusiness.Authorize("Student.Index"))
+                {
+                    <li><a href="@Url.Action("Index", "Student" )">@Resources.Resources.Students</a></li>
+                }
+                @if (UserBusiness.Authorize("Instructor.Index"))
+                {
+                    <li><a href="@Url.Action("Index", "Instructor" )">@Resources.Resources.Instructors</a></li>
+                }
+                @if (UserBusiness.Authorize("Course.Index"))
+                {
+                    <li><a href="@Url.Action("Index", "Course" )">@Resources.Resources.Courses</a></li>
+                }
+                @if (UserBusiness.Authorize("Qualification.Index"))
+                {
+                    <li><a href="@Url.Action("Index", "Qualification" )">@Resources.Resources.CoursesAndQualifications</a></li>
+                }
+            </ul>
+        </li>
+        }
+
+
+
+        @if (UserBusiness.Authorize("User.Index") ||
+        UserBusiness.Authorize("Role.Index"))
+        {
+        <li class="sub-menu">
+            <a href="" data-ma-action="submenu-toggle"><i class="zmdi zmdi-shield-security"></i> @Resources.Resources.Security</a>
+
+            <ul>
+                @if (UserBusiness.Authorize("Role.Index"))
+                {
+                <li><a href="@Url.Action("Index", "Role" )">@Resources.Resources.Roles</a></li>
+                }
+                @if (UserBusiness.Authorize("User.Index"))
+                {
+                <li><a href="@Url.Action("Index", "User" )">@Resources.Resources.Users</a></li>
+                }
+            </ul>
+        </li>
+        }
+    </ul>
+</aside>

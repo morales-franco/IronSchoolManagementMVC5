@@ -1,0 +1,54 @@
+﻿@using Kendo.Mvc.UI
+@using IronSchool.WebSite.Helpers
+@{
+    ViewBag.Title = Resources.Resources.Courses;
+}
+@section Scripts{
+    @Styles.Render("~/bundles/kendoStyles")
+    @Scripts.Render("~/bundles/kendo")
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.4.0/jszip.min.js"></script>
+}
+<div class="block-header">
+    <h2>@ViewBag.Title</h2>
+    <ul class="actions">
+        @if (ViewBag.PermiteCrear)
+        {
+            <li>
+                <a href="@Url.Action("Create")" class="">
+                    <button class="btn btn-primary waves-effect"><i class="zmdi zmdi-plus"></i></button>
+                </a>
+            </li>
+        }
+        <li>
+            <button class="btn btn-primary waves-effect" onclick="downloadGridAsExcel();" title="@Resources.Resources.DownloadExcel"><i class="zmdi zmdi-download"></i></button>
+        </li>
+    </ul>
+</div>
+@(Html.Kendo().Grid<IronSchool.WebSite.Models.CourseIndexVM>()
+                                            .Name("grid")
+                                            .Columns(columns =>
+                                            {
+                                                columns.Bound(c => c.Description);
+                                                columns.Bound(c => c.Instructor);
+                                                columns.Bound(c => c.StartDate).Format("{0:dd/MM/yyyy}");
+                                                columns.Bound(c => c.FinishDate).Format("{0:dd/MM/yyyy}");
+                                                columns.Bound(c => c.StudentCountMax);
+                                                columns.Template(c => c.CourseId)
+                                                .ClientTemplate(Html.ActionsColumn("CourseId")).Title(Resources.Resources.Actions);
+
+                                            })
+                                            .HtmlAttributes(new { style = "height: 500px;" })
+                                            .Scrollable()
+                                            .Groupable()
+                                            .Sortable()
+                                            .Excel(excel => excel.Filterable(true).AllPages(true).FileName(ViewBag.Title))
+                                            .Pageable(pageable => pageable
+                                                .Refresh(true)
+                                                .PageSizes(true)
+                                                .ButtonCount(5))
+                                            .DataSource(dataSource => dataSource
+                                                .Ajax()
+                                                .Read(read => read.Action("GetList", "Course").Data("getFilter"))
+                                                .PageSize(Html.CrudPageSize()))
+                                                .Filterable()
+)

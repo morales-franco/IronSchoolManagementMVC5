@@ -1,0 +1,214 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ include file="Imports.include.t4" #>
+@model <#= ViewDataTypeName #>
+@using Resources
+<#
+// "form-control" attribute is only supported for all EditorFor() in System.Web.Mvc 5.1.0.0 or later versions, except for checkbox, which uses a div in Bootstrap
+string boolType = "System.Boolean";
+string dateType = "System.DateTime";
+string[] numericTypes = new string[] {"System.Int16", "System.Int32", "System.Int64", "System.Decimal", "System.Float", "System.Double"};
+Version requiredMvcVersion = new Version("5.1.0.0");
+bool isControlHtmlAttributesSupported = MvcVersion >= requiredMvcVersion;
+// The following chained if-statement outputs the file header code and markup for a partial view, a view using a layout page, or a regular view.
+if(IsPartialView) {
+#>
+
+<#
+} else if(IsLayoutPageSelected) {
+#>
+
+@{ 
+	ViewBag.Title = Resources.<#= ViewDataTypeShortName#>;
+<#
+if (!String.IsNullOrEmpty(LayoutPageFile)) {
+#>
+    Layout = "<#= LayoutPageFile#>";
+<#
+}
+#>
+}
+@section featured {<h1>@ViewBag.Title</h1>}
+
+<#
+} else {
+#>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title><#= ViewName #></title>
+</head>
+<body>
+<#
+    PushIndent("    ");
+}
+#>
+<#
+if (ReferenceScriptLibraries) {
+#>
+<#
+    if (!IsLayoutPageSelected && IsBundleConfigPresent) {
+#>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
+
+<#
+    }
+#>
+<#
+    else if (!IsLayoutPageSelected) {
+#>
+<script src="~/Scripts/jquery-<#= JQueryVersion #>.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<#
+    }
+#>
+
+<#
+}
+#>
+    
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+	<div class="row">
+		<div class="col-md-12">
+			<div class="box">
+				<div class="box-body">
+    <# 
+    if (isControlHtmlAttributesSupported) {
+#>
+				@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<#        
+    } else {
+#>
+				@Html.ValidationSummary(true)
+<#      
+    }
+#>
+					<fieldset>
+					<legend></legend>
+<#
+foreach (PropertyMetadata property in ModelMetadata.Properties) {
+    if (property.Scaffold && !property.IsReadOnly && !property.IsAssociation) {
+
+        // If the property is a primary key and Guid, then the Guid is generated in the controller. Hence, this propery is not displayed on the view.
+        if (property.IsPrimaryKey) {
+#>
+					@Html.HiddenFor(model => model.<#= property.PropertyName #>)
+<#
+			continue;
+        }
+#>
+					<div class="form-group col-md-6">
+<#
+        if (property.IsForeignKey) {
+#>
+						@Html.LabelFor(model => model.<#= property.PropertyName #>, "<#= GetAssociationName(property) #>")
+<#
+        } else {
+#>
+						@Html.LabelFor(model => model.<#= property.PropertyName #>)
+<#
+        }
+        bool isCheckbox = property.TypeName.Equals(boolType);
+        if (property.IsForeignKey) {
+#>
+<# 
+            if (isControlHtmlAttributesSupported) {
+#>
+						@Html.DropDownList("<#= property.PropertyName #>")
+<#
+            } else {
+#>
+						@Html.DropDownList("<#= property.PropertyName #>", String.Empty)
+<#
+            }
+#>
+<#
+        } else  {			
+			bool isBoolean = property.TypeName.Equals(boolType);
+			bool isDateTime = property.TypeName.Equals(dateType);
+			bool isNumeric = numericTypes.Contains(property.TypeName);
+			if(isBoolean){
+#>						@Html.CheckboxFor(model => model.<#= property.PropertyName #>, new {@class="form-control"})
+<#          }
+			if(isDateTime){
+#>						@Html.TextBoxFor(model => model.<#= property.PropertyName #>,null, new { @type="date", @class="form-control"})
+<#			}
+			if(isNumeric){
+#>						@Html.TextBoxFor(model => model.<#= property.PropertyName #>,null, new { @type="number", @class="form-control"})
+<#			}
+			if(!isDateTime && !isBoolean && !isNumeric){
+#>						@Html.TextBoxFor(model => model.<#= property.PropertyName #>, null, new {@class="form-control"})
+<#          }
+        }
+#>
+<# 
+        if (isControlHtmlAttributesSupported) {
+#>						@Html.ValidationMessageFor(model => model.<#= property.PropertyName #>, "", new { @class = "text-danger" })
+<#        
+        } else {
+#>						@Html.ValidationMessageFor(model => model.<#= property.PropertyName #>)
+<#      }
+        if (isCheckbox && isControlHtmlAttributesSupported) {
+            PopIndent();
+#>						</div>
+<#
+        }
+#>					</div>
+<#
+    }
+}
+		#>			</fieldset>
+				</div>
+			</div>
+		</div>  
+		<div class="col-md-12">
+			<input type="submit" value="@Resources.Accept"  class="btn btn-primary btn-md"/>
+			@Html.ActionLinkWithIcon(Resources.Back, "fa fa-times", "Index", null, null, new { @class = "btn btn-default btn-md cancel" })
+		</div>
+	</div>
+}
+<#
+if(IsLayoutPageSelected && ReferenceScriptLibraries && IsBundleConfigPresent) {
+#>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<#
+}
+#>
+<#
+else if(IsLayoutPageSelected && ReferenceScriptLibraries) {
+#>
+
+<script src="~/Scripts/jquery-<#= JQueryVersion #>.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<#
+}
+#>
+<#
+// The following code closes the tag used in the case of a view using a layout page and the body and html tags in the case of a regular view page
+#>
+<#
+if(!IsPartialView && !IsLayoutPageSelected) {
+    ClearIndent();
+#>
+</body>
+</html>
+<#
+}
+#>
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

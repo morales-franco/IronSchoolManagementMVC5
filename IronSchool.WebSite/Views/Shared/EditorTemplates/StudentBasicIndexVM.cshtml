@@ -1,0 +1,19 @@
+﻿@model IronSchool.WebSite.Models.StudentBasicIndexVM
+<tr>
+    <td>
+        @Html.HiddenFor(m => m.StudentId, new { @class = "student-id" })
+        @Html.HiddenFor(m => m.FirstName)
+        @Html.HiddenFor(m => m.LastName)
+        @Model.FirstName
+    </td>
+    <td>@Model.LastName</td>
+    <td>
+        <ul class="actions pull-right">
+            <li>
+                <button type="button" formnovalidate="formnovalidate" class="btn btn-danger waves-effect" onclick="removeRowStudent(this)">
+                    <i class="zmdi zmdi-delete"></i>
+                </button>
+            </li>
+        </ul>
+    </td>
+</tr>

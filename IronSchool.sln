@@ -1,0 +1,90 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronSchool.WebSite", "IronSchool.WebSite\IronSchool.WebSite.csproj", "{9A41D679-14E0-4DB8-A03C-8FA4E4CEF831}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronSchool.Repositories.Interfaces", "IronSchool.Repositories.Interfaces\IronSchool.Repositories.Interfaces.csproj", "{FAF113C7-515E-4C02-9751-129D30388216}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronSchool.Entities", "IronSchool.Entities\IronSchool.Entities.csproj", "{F35379B2-633C-4A4D-94D1-94529BAE471C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronSchool.Repositories", "IronSchool.Repositories\IronSchool.Repositories.csproj", "{29A90DBA-4AB3-4998-AB6D-94BB368A9CCA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronSchool.Business", "IronSchool.Business\IronSchool.Business.csproj", "{2843F563-D89C-42DC-B72D-575F7E378DDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronSchool.Utils", "IronSchool.Utils\IronSchool.Utils.csproj", "{546A6F7B-C3EE-4E33-8CEC-6C15D1D2B0C8}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "IronSchool.Backend", "IronSchool.Backend\IronSchool.Backend.sqlproj", "{07D5260D-453F-4CBB-8F76-3F6410E27A47}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9A41D679-14E0-4DB8-A03C-8FA4E4CEF831}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A41D679-14E0-4DB8-A03C-8FA4E4CEF831}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A41D679-14E0-4DB8-A03C-8FA4E4CEF831}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A41D679-14E0-4DB8-A03C-8FA4E4CEF831}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAF113C7-515E-4C02-9751-129D30388216}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAF113C7-515E-4C02-9751-129D30388216}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAF113C7-515E-4C02-9751-129D30388216}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAF113C7-515E-4C02-9751-129D30388216}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F35379B2-633C-4A4D-94D1-94529BAE471C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F35379B2-633C-4A4D-94D1-94529BAE471C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F35379B2-633C-4A4D-94D1-94529BAE471C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F35379B2-633C-4A4D-94D1-94529BAE471C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29A90DBA-4AB3-4998-AB6D-94BB368A9CCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29A90DBA-4AB3-4998-AB6D-94BB368A9CCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29A90DBA-4AB3-4998-AB6D-94BB368A9CCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29A90DBA-4AB3-4998-AB6D-94BB368A9CCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2843F563-D89C-42DC-B72D-575F7E378DDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2843F563-D89C-42DC-B72D-575F7E378DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2843F563-D89C-42DC-B72D-575F7E378DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2843F563-D89C-42DC-B72D-575F7E378DDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{546A6F7B-C3EE-4E33-8CEC-6C15D1D2B0C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{546A6F7B-C3EE-4E33-8CEC-6C15D1D2B0C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{546A6F7B-C3EE-4E33-8CEC-6C15D1D2B0C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{546A6F7B-C3EE-4E33-8CEC-6C15D1D2B0C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07D5260D-453F-4CBB-8F76-3F6410E27A47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07D5260D-453F-4CBB-8F76-3F6410E27A47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07D5260D-453F-4CBB-8F76-3F6410E27A47}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{07D5260D-453F-4CBB-8F76-3F6410E27A47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07D5260D-453F-4CBB-8F76-3F6410E27A47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07D5260D-453F-4CBB-8F76-3F6410E27A47}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {12269BFE-2778-4350-8A75-E09D771DF87A}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 8
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://fmorales96.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = IronSchool.Backend\\IronSchool.Backend.sqlproj
+		SccProjectName1 = IronSchool.Backend
+		SccLocalPath1 = IronSchool.Backend
+		SccProjectUniqueName2 = IronSchool.Business\\IronSchool.Business.csproj
+		SccProjectName2 = IronSchool.Business
+		SccLocalPath2 = IronSchool.Business
+		SccProjectUniqueName3 = IronSchool.Entities\\IronSchool.Entities.csproj
+		SccProjectName3 = IronSchool.Entities
+		SccLocalPath3 = IronSchool.Entities
+		SccProjectUniqueName4 = IronSchool.Repositories.Interfaces\\IronSchool.Repositories.Interfaces.csproj
+		SccProjectName4 = IronSchool.Repositories.Interfaces
+		SccLocalPath4 = IronSchool.Repositories.Interfaces
+		SccProjectUniqueName5 = IronSchool.Repositories\\IronSchool.Repositories.csproj
+		SccProjectName5 = IronSchool.Repositories
+		SccLocalPath5 = IronSchool.Repositories
+		SccProjectUniqueName6 = IronSchool.Utils\\IronSchool.Utils.csproj
+		SccProjectName6 = IronSchool.Utils
+		SccLocalPath6 = IronSchool.Utils
+		SccProjectUniqueName7 = IronSchool.WebSite\\IronSchool.WebSite.csproj
+		SccProjectName7 = IronSchool.WebSite
+		SccLocalPath7 = IronSchool.WebSite
+	EndGlobalSection
+EndGlobal

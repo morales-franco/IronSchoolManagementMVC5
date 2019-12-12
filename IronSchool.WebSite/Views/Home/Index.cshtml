@@ -1,0 +1,59 @@
+﻿@model IronSchool.WebSite.Models.HomeInstructorVM
+
+<div class="card">
+    <div class="card-body card-padding">
+        <div class="row m-t-25 p-0 m-b-25">
+            <div class="col-xs-6">
+                <div class="bgm-amber brd-2 p-15">
+                    <div class="c-white m-b-5">Cantidad Cursos Dados</div>
+                    <h2 class="m-0 c-white f-300">@Model.CantidadCursosDados</h2>
+                </div>
+            </div>
+
+            <div class="col-xs-6">
+                <div class="bgm-blue brd-2 p-15">
+                    <div class="c-white m-b-5">Cant. Alumnos curso activo</div>
+                    <h2 class="m-0 c-white f-300">@Model.CantidadAlumnosEnCursosActivos</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Ranking Estudiantes<small>Mejores Promedios del Curso</small></h2>
+                    </div>
+
+                    <div class="card-body m-t-0">
+                        <table class="table table-inner table-vmiddle">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Estudiante</th>
+                                    <th style="width: 80px">Promedio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var estudiante in Model.EstudiantesTop)
+                                {
+                                    <tr>
+                                        <td class="f-500 c-cyan">#@(Model.EstudiantesTop.IndexOf(estudiante) + 1)</td>
+                                        <td>@estudiante.Estudiante</td>
+                                        <td class="f-500 c-cyan">@estudiante.Promedio</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+</div>
+

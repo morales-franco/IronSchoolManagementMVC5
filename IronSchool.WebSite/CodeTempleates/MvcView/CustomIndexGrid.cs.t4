@@ -1,0 +1,61 @@
+﻿<#@ template language="C#" HostSpecific="True" #>
+<#@ output extension=".cshtml" #>
+<#@ include file="Imports.include.t4" #>
+@model IEnumerable<#= "<" + ViewDataTypeName + ">" #>
+
+
+@{        
+    var grid = new WebGrid(null,                            
+                            rowsPerPage: Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["CRUDGridPageSize"]), 
+                            canPage: true, 
+                            canSort: true, 
+                            ajaxUpdateContainerId: "ajaxGrid",
+							ajaxUpdateCallback: "webGridUpdated");
+                               
+    grid.Bind(Model, autoSortAndPage: true);
+}
+
+<div id="ajaxGrid">
+	<div class="box">
+			<div class="box-body no-padding" style="overflow:auto">
+			    @grid.GetHtml(tableStyle: "table table-hover table-striped", 
+                    mode: WebGridPagerModes.All, 
+                    columns: new[] 
+                    {     
+<#
+	IEnumerable<PropertyMetadata> properties = ModelMetadata.Properties;	
+	foreach (PropertyMetadata property in properties) {
+		if (property.Scaffold && !property.IsPrimaryKey && !property.IsForeignKey) {
+#>
+						grid.Column(columnName:"<#= property.PropertyName #>", header: Server.HtmlDecode(Html.DisplayNameFor(model => model.<#= GetValueExpression(property) #>).ToString()), canSort: true),                        
+<#  			
+		}
+    }
+
+	string primaryKeyColumn = string.Empty;
+	foreach (PropertyMetadata property in properties) {
+		if (property.IsPrimaryKey) {
+			primaryKeyColumn = property.PropertyName;
+			break;
+        }
+	}
+#>      
+                        grid.Column(columnName: null, canSort:false, style: "actionColumn", format:
+                            @<text>
+                                @if(ViewBag.PermiteVer){
+                                <a href='@Url.Action("Details", new { id = item.<#= primaryKeyColumn #>})'><i class="fa fa-eye fa-lg">&nbsp&nbsp</i></a>
+                                }
+                                @if(ViewBag.PermiteEditar){
+                                <a href='@Url.Action("Edit", new { id = item.<#= primaryKeyColumn #> })'><i class="fa fa-pencil fa-lg">&nbsp&nbsp</i></a>
+                                }
+                                @if(ViewBag.PermiteEliminar){
+                                    <a href="#" onclick="confirmDelete('@Url.Action("Delete")','@item.<#= primaryKeyColumn #>')"><i class="fa fa-times fa-lg"></i></a>
+                                }
+                            </text>)
+                },
+                footerStyle: "webgrid-footer")
+		</div>
+    </div>
+</div>
+
+<#@ include file="ModelMetadataFunctions.cs.include.t4" #>

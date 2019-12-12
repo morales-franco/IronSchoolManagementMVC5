@@ -1,0 +1,25 @@
+﻿@model IronSchool.WebSite.Models.UserVM
+@using IronSchool.WebSite.Helpers
+@{
+    ViewBag.Title = string.Format("{0} {1}", Resources.Resources.Details, Resources.Resources.User);
+}
+
+<div class="card">
+    <div class="card-header">
+        <h2>
+            @Resources.Resources.User
+            <small>@Resources.Resources.Details</small>
+        </h2>
+    </div>
+
+    <div class="card-body card-padding">
+        <div class="row">
+            @Html.FormFieldFor(m => m.UserName, 4, new { @disabled = true })
+            @Html.FormFieldFor(m => m.FirstName, 4, new { @disabled = true })
+            @Html.FormFieldFor(m => m.LastName, 4, new { @disabled = true })
+            @Html.FormFieldFor(m => m.Email, 4, new { @disabled = true })
+            @Html.FormSelectFieldFor(m => m.Active, (SelectList)ViewBag.BooleanItems, Resources.Resources.Select, 4, new { @disabled = true })
+        </div>
+        @Html.BackButton()
+    </div>
+</div>

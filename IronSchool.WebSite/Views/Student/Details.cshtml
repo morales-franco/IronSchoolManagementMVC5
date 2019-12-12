@@ -1,0 +1,35 @@
+﻿@model IronSchool.WebSite.Models.StudentVM
+@using IronSchool.WebSite.Helpers
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="card">
+        <div class="card-header">
+            <h2>
+                @Resources.Resources.Student
+                <small>@Resources.Resources.Details</small>
+            </h2>
+        </div>
+
+        <div class="card-body card-padding">
+            <div class="row">
+                <fieldset>
+                    @Html.FormFieldFor(m => m.FirstName, 4, new { @disabled = "true" })
+                    @Html.FormFieldFor(m => m.LastName, 4, new { @disabled = "true" })
+                    @Html.FormFieldFor(m => m.BirthDate, 4, new { @type = "date", @disabled = "true" })
+                    @Html.FormFieldFor(m => m.Address, 12, new { @disabled = "true" })
+                    @Html.FormFieldFor(m => m.ContactMail, 6, new { @disabled = "true" })
+                    @Html.FormFieldFor(m => m.ContactPhone, 6, new { @disabled = "true" })
+                    @Html.FormSelectFieldFor(m => m.Sex, (SelectList)ViewBag.SexList, Resources.Resources.Select, 4, new { @disabled = "true" })
+                </fieldset>
+                @Html.BackButton()
+            </div>
+        </div>
+    </div>
+}
+@section Scripts{
+    @Scripts.Render("~/bundles/kendo")
+    @Styles.Render("~/bundles/kendoStyles")
+}

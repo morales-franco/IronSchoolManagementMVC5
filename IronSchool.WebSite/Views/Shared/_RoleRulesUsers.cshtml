@@ -1,0 +1,40 @@
+﻿@model IronSchool.WebSite.Models.RoleVM
+<div class="table-responsive col-md-12">
+    <p class="c-black f-500 m-b-5">@Resources.Resources.Permissions</p>
+    <small>
+        @Resources.Resources.SelectPermissionsToRole
+    </small>
+    <table class="table" id="rulesTable">
+        <tr>
+            <th>@Resources.Resources.Permission</th>
+            <th>
+                <label class="checkbox checkbox-inline m-r-20">
+                    <input type="checkbox" value="" id="selectAllRules">
+                    <i class="input-helper"></i>
+                </label>
+            </th>
+        </tr>
+        @Html.EditorFor(x => x.Rules)
+    </table>
+</div>
+<br />
+<br />
+<div class="table-responsive col-md-12">
+    <p class="c-black f-500 m-b-5">@Resources.Resources.Users</p>
+    <small>
+        @Resources.Resources.SelectUsersToRole
+    </small>
+    <table class="table" id="usersTable">
+        <tr>
+            <th>@Resources.Resources.LastName</th>
+            <th>@Resources.Resources.FirstName</th>
+            <th>
+                <label class="checkbox checkbox-inline m-r-20">
+                    <input type="checkbox" value="" id="selectAllUsers">
+                    <i class="input-helper"></i>
+                </label>
+            </th>
+        </tr>
+        @Html.EditorFor(x => x.Users)
+    </table>
+</div>

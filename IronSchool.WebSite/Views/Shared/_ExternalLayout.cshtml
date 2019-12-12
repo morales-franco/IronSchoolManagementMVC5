@@ -1,0 +1,30 @@
+﻿<html>
+<script id="tinyhippos-injected">if (window.top.ripple) { window.top.ripple("bootstrap").inject(window, document); }</script>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@Resources.Resources.ApplicationName</title>
+    
+    <!-- Vendor CSS -->
+    @Styles.Render("~/Content/ma/animate.css")
+    @Styles.Render("~/Content/ma/material-design-iconic-font.css")
+    @Styles.Render("~/Content/ma/app_1.css")
+    @Styles.Render("~/Content/ma/app_2.css")
+
+    @Styles.Render("~/Content/site.css")
+
+    @Scripts.Render("~/bundles/jquery")
+</head>
+
+<body cz-shortcut-listen="true">
+
+    @RenderBody()
+
+    <!-- Javascript Libraries -->
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/ma/waves.js")
+    @Scripts.Render("~/Scripts/ma/app.js")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

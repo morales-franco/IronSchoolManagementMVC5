@@ -1,0 +1,35 @@
+﻿@model IronSchool.WebSite.Models.MyProfileVM
+@using IronSchool.WebSite.Helpers
+@{
+    ViewBag.Title = Resources.Resources.MyProfile;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="card">
+        <div class="card-header">
+            <h2>
+                @Resources.Resources.User
+                <small>@Resources.Resources.MyProfile</small>
+                <small>@Html.ValidationSummary(true)</small>
+            </h2>
+        </div>
+
+        <div class="card-body card-padding">
+            <div class="row">
+                <fieldset>
+                    @Html.HiddenFor(m => m.UserId)
+                    @Html.FormFieldFor(m => m.UserName, 4)
+                    @Html.FormFieldFor(m => m.FirstName, 4)
+                    @Html.FormFieldFor(m => m.LastName, 4)
+                    @Html.FormFieldFor(m => m.Email, 4)
+                </fieldset>
+                @Html.Submit(Resources.Resources.Save)
+                @Html.ActionLink(Resources.Resources.ResetPassword, "ResetMyPassword", null, new { @class = "btn btn-default waves-effect" })
+            </div>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,18 @@
+﻿@model IronSchool.WebSite.Models.RoleUserVM
+@using Resources
+
+<tr>
+    <td>
+        @Html.HiddenFor(x => x.UserId)
+        @Model.FirstName
+    </td>
+    <td>
+        @Model.LastName
+    </td>
+    <td>
+        <label class="checkbox">
+            @Html.CheckBoxFor(x => x.Selected)
+        </label>
+    </td>
+</tr>
+

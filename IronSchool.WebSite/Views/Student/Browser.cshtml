@@ -1,0 +1,42 @@
+﻿@using Kendo.Mvc.UI
+@using IronSchool.WebSite.Helpers
+@{
+    ViewBag.Title = Resources.Resources.Students;
+    Layout = null;
+}
+@Styles.Render("~/bundles/kendoStyles")
+@Scripts.Render("~/bundles/kendo")
+<div class="browserWindow">
+    @(Html.Kendo().Grid<IronSchool.WebSite.Models.StudentIndexVM>
+                    ()
+                    .Name("grid")
+                    .Columns(columns =>
+                    {
+                        columns.Template(c => c.StudentId)
+                            .ClientTemplate(
+                                "<a title='" + Resources.Resources.Select + "' href='\\#' onclick='browserStudentItemSelected(#= StudentId #,  \"#= LastName #\", \"#= FirstName #\")'><i class='grid-action-icon zmdi-check'></i></a>"
+                            )
+                            .Title(Resources.Resources.Actions);
+                        columns.Bound(c => c.LastName);
+                        columns.Bound(c => c.FirstName);
+                        columns.Bound(c => c.ContactMail);
+                        columns.Bound(c => c.ContactPhone);
+                        columns.Bound(c => c.Sex);
+                        columns.Bound(c => c.Address);
+                    })
+                    .HtmlAttributes(new { style = "height: 500px;" })
+                    .Scrollable()
+                    .Groupable()
+                    .Sortable()
+                    .Pageable(pageable => pageable
+                    .Refresh(true)
+                    .PageSizes(true)
+                    .ButtonCount(5))
+                    .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .Read(read => read.Action("GetList", "Student").Data("getFilter"))
+                    .PageSize(Html.CrudPageSize())
+                    )
+                    .Filterable()
+    )
+</div>

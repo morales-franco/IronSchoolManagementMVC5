@@ -1,0 +1,31 @@
+﻿@model IronSchool.WebSite.Models.QualificationVM
+@using IronSchool.WebSite.Helpers
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="card">
+        <div class="card-header">
+            <h2>
+                @Resources.Resources.Qualification
+                <small>@Resources.Resources.Details</small>
+            </h2>
+        </div>
+        <div class="card-body card-padding">
+            <div class="row">
+                <fieldset>
+                    @Html.HiddenFor(m => m.CourseId)
+                    @Html.HiddenFor(m => m.StudentId)
+                    @Html.FormFieldFor(m => m.CourseDescription, 6, new { @readonly = true })
+                    @Html.FormFieldFor(m => m.StudentName, 6, new { @readonly = true })
+                    @Html.FormFieldFor(m => m.ExamQualification, 2, new { @onkeydown = "onlyNumbers(this)", @readonly = true })
+                </fieldset>
+                @Html.BackButton()
+            </div>
+        </div>
+    </div>
+}
+@section Scripts{
+    @Scripts.Render("~/bundles/kendo")
+    @Styles.Render("~/bundles/kendoStyles")
+}

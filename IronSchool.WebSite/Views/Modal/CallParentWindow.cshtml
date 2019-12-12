@@ -1,0 +1,23 @@
+﻿@{ 
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Closing Window</title>
+    <script type="text/javascript">
+        function closeWindow() {
+            var values = '@Html.Raw(Json.Encode(ViewBag.values))';            
+            var senderId = '@ViewBag.senderId';
+            @String.Format("window.opener.{0}(senderId, values);", ViewBag.callback)
+            window.close();
+        }       
+    </script>
+</head>
+<body onload="closeWindow()">
+    <hgroup>
+        <h1>Closing Window</h1>
+    </hgroup>
+</body>
+</html>

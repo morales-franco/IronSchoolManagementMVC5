@@ -1,0 +1,73 @@
+﻿@model IronSchool.WebSite.Models.CourseVM
+@using IronSchool.WebSite.Helpers
+@{
+    ViewBag.Title = string.Format("{0} {1}", Resources.Resources.Details, Resources.Resources.Course);
+    ViewBag.Modal = Context.Request.Params["modal"] == "true";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="card">
+        <div class="card-header">
+            <h2>
+                @Resources.Resources.Course
+                <small>@Resources.Resources.Details</small>
+            </h2>
+        </div>
+
+        <div class="card-body card-padding">
+            <div class="row">
+                <fieldset>
+                    <div class="row">
+                        @Html.FormFieldFor(m => m.Description, 12, new { @disabled = true })
+                        @Html.FormFieldFor(m => m.StartDate, 6, new { @type = "date", @disabled = true })
+                        @Html.FormFieldFor(m => m.FinishDate, 6, new { @type = "date", @disabled = true })
+                        @Html.FormFieldFor(m => m.StudentCountMax, 4, new { @disabled = true })
+                        @Html.BrowserFor(m => m.InstructorId, m => m.InstructorName, 6, "Instructor")
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="f-500 c-black m-b-5">@Resources.Resources.Students</p>
+                            <small>Agregue aquí los estudiantes</small>
+                        </div>
+                        <div style="margin:0px 20px 0px 20px">
+                            <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp table table-bordered table-condensed"
+                                   id="student-table-id" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>@Resources.Resources.LastName</th>
+                                        <th>@Resources.Resources.FirstName</th>
+                                        <th style="width:5%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @Html.EditorFor(m => m.Students)
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </fieldset>
+                @Html.BackButton()
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Scripts{
+    @Scripts.Render("~/bundles/kendo")
+    @Styles.Render("~/bundles/kendoStyles")
+
+    <script type="text/javascript">
+        $(function () {
+            $('.browser-addon a, ul.actions').remove();
+            $('input.browser-code').attr('readonly', true);
+        });
+    </script>
+
+}
